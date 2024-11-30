@@ -5,9 +5,9 @@ const ItemSchema = new mongoose.Schema({
   checked: { type: Boolean, default: false },
 });
 
-const CategorySchema = new mongoose.Schema({
+const TodoSchema = new mongoose.Schema({
   title: { type: String, required: true },
   items: [ItemSchema],
 }, { timestamps: true });
 
-module.exports = mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('Todo', TodoSchema);
