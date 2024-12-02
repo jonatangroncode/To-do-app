@@ -6,6 +6,9 @@ const Todo = () => {
   const [newTodo, setNewTodo] = useState("");
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState([]);
+  const [editingTodo, setEditingTodo] = useState(null); 
+  const [editTitle, setEditTitle] = useState(""); 
+  const [editItems, setEditItems] = useState([]);
 
   useEffect(() => {
     axios
@@ -24,8 +27,7 @@ const Todo = () => {
       setNewItem("");
     }
   };
-  
-  
+
   const addTodo = () => {
     if (newTodo.trim()) {
       axios
@@ -46,7 +48,32 @@ const Todo = () => {
         .catch((error) => console.error(error));
     }
   };
+
+  const startEditing = (todo) => {
+    setEditingTodo(todo._id);
+    setEditTitle(todo.title);
+    setEditItems(todo.items);
+  };
+
+  const saveTodo = (id) => {
+    axios
+      .put(
+        `http://localhost:3000/api/todos/${id}`,
+        { title: editTitle, items: editItems },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        setTodos(todos.map((todo) => (todo._id === id ? response.data : todo)));
+        setEditingTodo(null); 
+      })
+      .catch((error) => console.error("Error updating todo:", error));
+  };
   
+
   const deleteTodo = (id) => {
     axios
       .delete(`http://localhost:3000/api/todos/${id}`, {
@@ -57,7 +84,6 @@ const Todo = () => {
       .then(() => setTodos(todos.filter((todo) => todo._id !== id)))
       .catch((error) => console.error(error));
   };
-  
 
   return (
     <div>
@@ -89,18 +115,52 @@ const Todo = () => {
 
       <h2>Todos</h2>
       <ul>
-        {todos.map((todo) => (
-          <li key={todo._id}>
-            <strong>{todo.title}</strong>
-            <ul>
-              {todo.items.map((item, index) => (
-                <li key={index}>{item.name}</li>
-              ))}
-            </ul>
-            <button onClick={() => deleteTodo(todo._id)}>Delete Todo</button>
-          </li>
-        ))}
-      </ul>
+  {todos.map((todo) => (
+    <li key={todo._id}>
+      {editingTodo === todo._id ? (
+        <div>
+          <input
+            type="text"
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+            placeholder="Edit Title"
+          />
+          <ul>
+            {editItems.map((item, index) => (
+              <li key={index}>
+                <input
+                  type="text"
+                  value={item.name}
+                  onChange={(e) => {
+                    const newItems = [...editItems];
+                    newItems[index].name = e.target.value;
+                    setEditItems(newItems);
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+          <button onClick={() => saveTodo(todo._id)}>Save</button>
+          <button onClick={() => setEditingTodo(null)}>Cancel</button>
+        </div>
+      ) : (
+        <div>
+          <strong>{todo.title}</strong>
+          <ul>
+            {todo.items.map((item, index) => (
+              <li key={index}>{item.name}</li>
+            ))}
+          </ul>
+          <button onClick={() => startEditing(todo)}>Edit</button>
+        </div>
+      )}
+       <button onClick={() => deleteTodo(todo._id)}>Delete Todo</button>
+
+    </li>
+  ))}
+</ul>
+
+
     </div>
   );
 };

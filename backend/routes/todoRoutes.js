@@ -6,15 +6,8 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 router.post('/', authenticateToken, createTodo);
 router.get('/', authenticateToken, getTodos);
-
-
-router.get('/', getTodos);
-
-router.post('/', createTodo);
-
-router.put('/:id', updateTodo);
-
-router.delete('/:id', deleteTodo);
+router.put('/:id', authenticateToken, updateTodo);
+router.delete('/:id', authenticateToken, deleteTodo);
 
 module.exports = router;
 

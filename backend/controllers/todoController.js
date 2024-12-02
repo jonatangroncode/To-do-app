@@ -27,18 +27,25 @@ const createTodo = async (req, res) => {
 
 const updateTodo = async (req, res) => {
     try {
-        const todo = await Todo.findByIdAndUpdate(
-            { _id: req.params.id, userId: req.user.id },
-            { $set: req.body },
-            { new: true } 
-        );
-        if (!todo) return res.status(404).json({ message: 'Todo not found' });
-        res.status(200).json(todo);
-      } catch (error) {
-        console.error('Error updating todo:', error.message);
-        res.status(500).json({ message: 'An unexpected error occurred' });
+      const { title, items } = req.body; 
+  
+      const todo = await Todo.findOneAndUpdate(
+        { _id: req.params.id, userId: req.user.id }, 
+        { title, items }, 
+        { new: true } 
+      );
+  
+      if (!todo) {
+        return res.status(404).json({ message: 'Todo not found' });
       }
-    };
+  
+      res.status(200).json(todo);
+    } catch (error) {
+      console.error('Error updating todo:', error.message);
+      res.status(500).json({ message: 'An unexpected error occurred' });
+    }
+  };
+  
 
 const deleteTodo = async (req, res) => {
     try {
