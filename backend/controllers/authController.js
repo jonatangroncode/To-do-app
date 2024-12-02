@@ -2,10 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
-const users = [
-  { id: 1, username: 'johnDoe', password: 'password1' },
-  { id: 2, username: 'johndoes', password: 'password2' }
-];
 
 const login = async (req, res) => {
     try {
