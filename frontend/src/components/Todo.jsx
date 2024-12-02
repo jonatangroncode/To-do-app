@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import './css/Todo.css'
+
 
 const Todo = () => {
   const [todos, setTodos] = useState([]);

@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+h2, h3 {
+    margin-top: 20px;
+    color: #495057;
+}
+
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button.add {
+    background-color: #28a745;
+    color: white;
+}
+
+button.edit {
+    background-color: #ffc107;
+    color: white;
+}
+
+button.save {
+    background-color: #007bff;
+    color: white;
+}
+
+button.cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+button.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+li {
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-item input[type="text"] {
+    width: 80%;
+    margin-right: 10px;
+}
+
+.todo-actions {
+    display: flex;
+    gap: 5px;
+}
+
+ul ul {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style: disc;
+}
+
+ul ul li {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 5px 0;
+    color: #495057;
+}
+
+.editing {
+    border: 2px solid #007bff;
+    background-color: #e9ecef;
+}
+
+.editing input {
+    border: 1px solid #007bff;
+    background-color: #ffffff;
+}
