@@ -9,7 +9,11 @@ const Todo = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/todos")
+      .get("http://localhost:3000/api/todos", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => setTodos(response.data))
       .catch((error) => console.error(error));
   }, []);
@@ -20,11 +24,20 @@ const Todo = () => {
       setNewItem("");
     }
   };
-
+  
+  
   const addTodo = () => {
     if (newTodo.trim()) {
       axios
-        .post("http://localhost:3000/api/todos", { title: newTodo, items })
+        .post(
+          "http://localhost:3000/api/todos",
+          { title: newTodo, items },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
         .then((response) => {
           setTodos([...todos, response.data]);
           setNewTodo("");
@@ -33,11 +46,16 @@ const Todo = () => {
         .catch((error) => console.error(error));
     }
   };
-
+  
   const deleteTodo = (id) => {
-    axios.delete(`http://localhost:3000/api/todos/${id}`)
-      .then(() => setTodos(todos.filter(todo => todo._id !== id)))
-      .catch(error => console.error(error));
+    axios
+      .delete(`http://localhost:3000/api/todos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(() => setTodos(todos.filter((todo) => todo._id !== id)))
+      .catch((error) => console.error(error));
   };
   
 
