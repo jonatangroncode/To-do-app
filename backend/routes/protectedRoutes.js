@@ -2,7 +2,8 @@ const express = require('express');
 const authenticateToken = require('../middlewares/authenticateToken');
 const router = express.Router();
 
-router.get('/secret', authenticateToken, (req, res) => {
+//mostlley for testing or if in the future im building a profile page thet show secret information
+router.get('/profile', authenticateToken, (req, res) => {
     const userId = req.user.id; 
     const username = req.user.username; 
   
