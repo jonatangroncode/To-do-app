@@ -6,6 +6,7 @@ const ItemSchema = new mongoose.Schema({
 });
 
 const TodoSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
   title: { type: String, required: true },
   items: [ItemSchema],
 }, { timestamps: true });
