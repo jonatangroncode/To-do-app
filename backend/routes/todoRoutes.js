@@ -4,8 +4,8 @@ const { getTodos, createTodo, updateTodo, deleteTodo } = require('../controllers
 const authenticateToken = require('../middlewares/authenticateToken');
 
 
-router.use(authenticateToken);
-
+router.post('/', authenticateToken, createTodo);
+router.get('/', authenticateToken, getTodos);
 
 
 router.get('/', getTodos);
