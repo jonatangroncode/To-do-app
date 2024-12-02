@@ -1,15 +1,23 @@
-import { useState } from 'react'
-import './App.css'
-import Todo from "./components/Todo";
-
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Todo from "./components/Todo";
+import ProtectedRoute from "./ProtectedRoute";
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <Todo />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/todos"
+          element={<ProtectedRoute element={<Todo />} />}
+        />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
